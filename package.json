@@ -1,0 +1,25 @@
+{
+  "name": "axm-monorepo",
+  "version": "0.1.0",
+  "description": "CommonGround + DeeplyUs: AxM Couple Relationship Platform",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/mobile",
+    "packages/types",
+    "packages/database",
+    "packages/relational-engine"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "dev:api": "npm run dev -w apps/api",
+    "dev:mobile": "npm run dev -w apps/mobile",
+    "build": "npm run build --workspaces",
+    "build:api": "npm run build -w apps/api",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
