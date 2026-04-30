@@ -134,6 +134,255 @@ export type Database = {
           created_at?: string
         }
       }
+      intimate_messages: {
+        Row: {
+          id: string
+          pair_id: string
+          sender_id: string
+          content: string
+          bently_response: string | null
+          escalation_level: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          sender_id: string
+          content: string
+          bently_response?: string | null
+          escalation_level?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          sender_id?: string
+          content?: string
+          bently_response?: string | null
+          escalation_level?: number
+          created_at?: string
+        }
+      }
+      daily_questions: {
+        Row: {
+          id: string
+          question_text: string
+          category: string | null
+          difficulty: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          question_text: string
+          category?: string | null
+          difficulty?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          question_text?: string
+          category?: string | null
+          difficulty?: string | null
+          created_at?: string
+        }
+      }
+      daily_answers: {
+        Row: {
+          id: string
+          pair_id: string
+          profile_id: string
+          question_id: string
+          answer_text: string | null
+          answered_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          profile_id: string
+          question_id: string
+          answer_text?: string | null
+          answered_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          profile_id?: string
+          question_id?: string
+          answer_text?: string | null
+          answered_at?: string
+        }
+      }
+      missions: {
+        Row: {
+          id: string
+          title: string
+          description: string | null
+          category: string | null
+          duration_days: number | null
+          xp_reward: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          category?: string | null
+          duration_days?: number | null
+          xp_reward?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string | null
+          category?: string | null
+          duration_days?: number | null
+          xp_reward?: number
+          created_at?: string
+        }
+      }
+      mission_progress: {
+        Row: {
+          id: string
+          pair_id: string
+          mission_id: string
+          status: 'not_started' | 'in_progress' | 'completed'
+          started_at: string | null
+          completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          mission_id: string
+          status?: 'not_started' | 'in_progress' | 'completed'
+          started_at?: string | null
+          completed_at?: string | null
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          mission_id?: string
+          status?: 'not_started' | 'in_progress' | 'completed'
+          started_at?: string | null
+          completed_at?: string | null
+        }
+      }
+      sparks: {
+        Row: {
+          id: string
+          title: string
+          rules: Json | null
+          xp_reward: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          rules?: Json | null
+          xp_reward?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          rules?: Json | null
+          xp_reward?: number
+          created_at?: string
+        }
+      }
+      spark_scores: {
+        Row: {
+          id: string
+          pair_id: string
+          spark_id: string
+          profile_id: string
+          score: number | null
+          played_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          spark_id: string
+          profile_id: string
+          score?: number | null
+          played_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          spark_id?: string
+          profile_id?: string
+          score?: number | null
+          played_at?: string
+        }
+      }
+      exercises: {
+        Row: {
+          id: string
+          title: string
+          description: string | null
+          category: string | null
+          mode: 'common' | 'deeply' | 'both'
+          difficulty: string | null
+          duration_minutes: number | null
+          instructions: Json | null
+          xp_reward: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          description?: string | null
+          category?: string | null
+          mode?: 'common' | 'deeply' | 'both'
+          difficulty?: string | null
+          duration_minutes?: number | null
+          instructions?: Json | null
+          xp_reward?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string | null
+          category?: string | null
+          mode?: 'common' | 'deeply' | 'both'
+          difficulty?: string | null
+          duration_minutes?: number | null
+          instructions?: Json | null
+          xp_reward?: number
+          created_at?: string
+        }
+      }
+      exercise_progress: {
+        Row: {
+          id: string
+          pair_id: string
+          exercise_id: string
+          status: 'not_started' | 'in_progress' | 'completed'
+          started_at: string | null
+          completed_at: string | null
+          notes: string | null
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          exercise_id: string
+          status?: 'not_started' | 'in_progress' | 'completed'
+          started_at?: string | null
+          completed_at?: string | null
+          notes?: string | null
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          exercise_id?: string
+          status?: 'not_started' | 'in_progress' | 'completed'
+          started_at?: string | null
+          completed_at?: string | null
+          notes?: string | null
+        }
+      }
       vault_memories: {
         Row: {
           id: string
@@ -190,6 +439,58 @@ export type Database = {
           reading_text?: string | null
           mode?: 'common' | 'deeply'
           generated_at?: string
+        }
+      }
+      quiz_questions: {
+        Row: {
+          id: string
+          quiz_type: string
+          question_text: string
+          options: Json | null
+          correct_answer: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          quiz_type: string
+          question_text: string
+          options?: Json | null
+          correct_answer?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          quiz_type?: string
+          question_text?: string
+          options?: Json | null
+          correct_answer?: string | null
+          created_at?: string
+        }
+      }
+      quiz_responses: {
+        Row: {
+          id: string
+          pair_id: string
+          profile_id: string
+          question_id: string
+          selected_option: string | null
+          answered_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          profile_id: string
+          question_id: string
+          selected_option?: string | null
+          answered_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          profile_id?: string
+          question_id?: string
+          selected_option?: string | null
+          answered_at?: string
         }
       }
       journal_entries: {
@@ -396,6 +697,168 @@ export type Database = {
           intervention_text?: string | null
           user_response?: string | null
           created_at?: string
+        }
+      }
+    }
+      user_xp: {
+        Row: {
+          id: string
+          profile_id: string
+          total_xp: number
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+          total_xp?: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+          total_xp?: number
+          updated_at?: string
+        }
+      }
+      user_achievements: {
+        Row: {
+          id: string
+          profile_id: string
+          achievement_id: string
+          unlocked_at: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+          achievement_id: string
+          unlocked_at?: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+          achievement_id?: string
+          unlocked_at?: string
+        }
+      }
+      mission_completions: {
+        Row: {
+          id: string
+          pair_id: string
+          mission_id: string
+          completed_by: string
+          completed_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          mission_id: string
+          completed_by: string
+          completed_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          mission_id?: string
+          completed_by?: string
+          completed_at?: string
+        }
+      }
+      exercise_completions: {
+        Row: {
+          id: string
+          pair_id: string
+          profile_id: string
+          exercise_id: string
+          completed_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          profile_id: string
+          exercise_id: string
+          completed_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          profile_id?: string
+          exercise_id?: string
+          completed_at?: string
+        }
+      }
+      spark_sessions: {
+        Row: {
+          id: string
+          pair_id: string
+          profile_id: string
+          spark_id: string
+          score: number | null
+          played_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          profile_id: string
+          spark_id: string
+          score?: number | null
+          played_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          profile_id?: string
+          spark_id?: string
+          score?: number | null
+          played_at?: string
+        }
+      }
+      growth_completions: {
+        Row: {
+          id: string
+          pair_id: string
+          module_id: string
+          completed_by: string
+          completed_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          module_id: string
+          completed_by: string
+          completed_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          module_id?: string
+          completed_by?: string
+          completed_at?: string
+        }
+      }
+      question_answers: {
+        Row: {
+          id: string
+          pair_id: string
+          profile_id: string
+          question_index: number
+          answer_text: string
+          answered_at: string
+        }
+        Insert: {
+          id?: string
+          pair_id: string
+          profile_id: string
+          question_index: number
+          answer_text: string
+          answered_at?: string
+        }
+        Update: {
+          id?: string
+          pair_id?: string
+          profile_id?: string
+          question_index?: number
+          answer_text?: string
+          answered_at?: string
         }
       }
     }
