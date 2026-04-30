@@ -699,7 +699,6 @@ export type Database = {
           created_at?: string
         }
       }
-    }
       user_xp: {
         Row: {
           id: string
@@ -725,19 +724,19 @@ export type Database = {
           id: string
           profile_id: string
           achievement_id: string
-          unlocked_at: string
+          earned_at: string
         }
         Insert: {
           id?: string
           profile_id: string
           achievement_id: string
-          unlocked_at?: string
+          earned_at?: string
         }
         Update: {
           id?: string
           profile_id?: string
           achievement_id?: string
-          unlocked_at?: string
+          earned_at?: string
         }
       }
       mission_completions: {
@@ -745,21 +744,24 @@ export type Database = {
           id: string
           pair_id: string
           mission_id: string
-          completed_by: string
+          profile_id: string
+          xp_awarded: number
           completed_at: string
         }
         Insert: {
           id?: string
           pair_id: string
           mission_id: string
-          completed_by: string
+          profile_id: string
+          xp_awarded?: number
           completed_at?: string
         }
         Update: {
           id?: string
           pair_id?: string
           mission_id?: string
-          completed_by?: string
+          profile_id?: string
+          xp_awarded?: number
           completed_at?: string
         }
       }
@@ -769,6 +771,7 @@ export type Database = {
           pair_id: string
           profile_id: string
           exercise_id: string
+          xp_awarded: number
           completed_at: string
         }
         Insert: {
@@ -776,6 +779,7 @@ export type Database = {
           pair_id: string
           profile_id: string
           exercise_id: string
+          xp_awarded?: number
           completed_at?: string
         }
         Update: {
@@ -783,6 +787,7 @@ export type Database = {
           pair_id?: string
           profile_id?: string
           exercise_id?: string
+          xp_awarded?: number
           completed_at?: string
         }
       }
@@ -791,24 +796,27 @@ export type Database = {
           id: string
           pair_id: string
           profile_id: string
-          spark_id: string
-          score: number | null
+          game_id: string
+          score: number
+          xp_awarded: number
           played_at: string
         }
         Insert: {
           id?: string
           pair_id: string
           profile_id: string
-          spark_id: string
-          score?: number | null
+          game_id: string
+          score?: number
+          xp_awarded?: number
           played_at?: string
         }
         Update: {
           id?: string
           pair_id?: string
           profile_id?: string
-          spark_id?: string
-          score?: number | null
+          game_id?: string
+          score?: number
+          xp_awarded?: number
           played_at?: string
         }
       }
@@ -817,21 +825,24 @@ export type Database = {
           id: string
           pair_id: string
           module_id: string
-          completed_by: string
+          profile_id: string
+          xp_awarded: number
           completed_at: string
         }
         Insert: {
           id?: string
           pair_id: string
           module_id: string
-          completed_by: string
+          profile_id: string
+          xp_awarded?: number
           completed_at?: string
         }
         Update: {
           id?: string
           pair_id?: string
           module_id?: string
-          completed_by?: string
+          profile_id?: string
+          xp_awarded?: number
           completed_at?: string
         }
       }
@@ -840,7 +851,7 @@ export type Database = {
           id: string
           pair_id: string
           profile_id: string
-          question_index: number
+          question_id: string
           answer_text: string
           answered_at: string
         }
@@ -848,7 +859,7 @@ export type Database = {
           id?: string
           pair_id: string
           profile_id: string
-          question_index: number
+          question_id: string
           answer_text: string
           answered_at?: string
         }
@@ -856,7 +867,7 @@ export type Database = {
           id?: string
           pair_id?: string
           profile_id?: string
-          question_index?: number
+          question_id?: string
           answer_text?: string
           answered_at?: string
         }
