@@ -1,10 +1,10 @@
 [build]
-  base = "apps/api"
+  base = "."
   command = "npm install"
-  publish = "public"
+  publish = "apps/api/public"
 
 [functions]
-  directory = "../../netlify/functions"
+  directory = "netlify/functions"
   node_bundler = "esbuild"
 
 [[redirects]]

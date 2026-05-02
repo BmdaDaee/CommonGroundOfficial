@@ -797,8 +797,8 @@ export type Database = {
           pair_id: string
           profile_id: string
           game_id: string
-          score: number
-          xp_awarded: number
+          score: number | null
+          xp_awarded: number | null
           played_at: string
         }
         Insert: {
