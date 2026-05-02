@@ -185,9 +185,48 @@ export const messagesRouter = router({
       }
       
       const { error } = await supabase.from('messages').delete().eq('id', input.messageId)
-      
+
       if (error) throw error
-      
+
       return { success: true }
+    }),
+
+  search: protectedProcedure
+    .input(
+      z.object({
+        pairId: z.string().uuid(),
+        query: z.string().min(1).max(500),
+        mode: z.enum(['common', 'deeply']).optional(),
+        limit: z.number().min(1).max(100).default(20),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      if (!ctx.userId) throw new Error('Not authenticated')
+
+      const { data: isMember } = await supabase
+        .from('pair_members')
+        .select('*')
+        .eq('pair_id', input.pairId)
+        .eq('profile_id', ctx.userId)
+
+      if (!isMember?.length) throw new Error('Not a member of this pair')
+
+      let dbQuery = supabase
+        .from('messages')
+        .select('*')
+        .eq('pair_id', input.pairId)
+        .ilike('content', `%${input.query}%`)
+
+      if (input.mode) {
+        dbQuery = dbQuery.eq('mode', input.mode)
+      }
+
+      const { data, error } = await dbQuery
+        .order('created_at', { ascending: false })
+        .limit(input.limit)
+
+      if (error) throw error
+
+      return data
     }),
 })
