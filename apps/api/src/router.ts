@@ -19,8 +19,11 @@ import { profileRouter } from './routers/profile'
 import { rankingsRouter } from './routers/rankings'
 import { achievementsRouter } from './routers/achievements'
 import { growthRouter } from './routers/growth'
+import { growthModulesRouter } from './routers/growthModules'
 import { trustRouter } from './routers/trust'
 import { helpRouter } from './routers/help'
+import { deeplyUsRouter } from './routers/deeplyUs'
+import { personalityRouter } from './routers/personality'
 import { getUserFromToken, getProfileByAuthId, getUserPairs } from './lib/supabase'
 
 export const appRouter = router({
@@ -43,8 +46,11 @@ export const appRouter = router({
   rankings: rankingsRouter,
   achievements: achievementsRouter,
   growth: growthRouter,
+  growthModules: growthModulesRouter,
   trust: trustRouter,
   help: helpRouter,
+  deeplyUs: deeplyUsRouter,
+  personality: personalityRouter,
 })
 
 export type AppRouter = typeof appRouter

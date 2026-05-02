@@ -162,6 +162,64 @@ export const relationalEngineRouter = router({
       return data
     }),
   
+  measureNow: protectedProcedure
+    .input(
+      z.object({
+        pairId: z.string().uuid(),
+        availability: z.enum(['LOW', 'MEDIUM', 'HIGH']),
+        alignment: z.enum(['LOW', 'MEDIUM', 'HIGH']),
+        activation: z.enum(['LOW', 'MEDIUM', 'HIGH']),
+        trust: z.enum(['LOW', 'MEDIUM', 'HIGH']),
+        notes: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.userId) throw new Error('Not authenticated')
+
+      const { data: isMember } = await supabase
+        .from('pair_members')
+        .select('*')
+        .eq('pair_id', input.pairId)
+        .eq('profile_id', ctx.userId)
+
+      if (!isMember?.length) throw new Error('Not a member of this pair')
+
+      const measurements: Measurements = {
+        availability: input.availability,
+        alignment: input.alignment,
+        activation: input.activation,
+        trust: input.trust,
+      }
+
+      const newState = deriveState(measurements, [])
+
+      const { error: historyError } = await supabase
+        .from('relational_state_history')
+        .insert({
+          pair_id: input.pairId,
+          state: newState,
+          availability: input.availability,
+          alignment: input.alignment,
+          activation: input.activation,
+          trust: input.trust,
+          asymmetries: [],
+          recorded_at: new Date().toISOString(),
+        })
+
+      if (historyError) throw historyError
+
+      const { data: updatedPair, error: pairError } = await supabase
+        .from('pairs')
+        .update({ relational_state: newState })
+        .eq('id', input.pairId)
+        .select()
+        .single()
+
+      if (pairError) throw pairError
+
+      return { measurements, state: newState, pair: updatedPair }
+    }),
+
   getInsights: protectedProcedure
     .input(z.object({ pairId: z.string().uuid() }))
     .query(async ({ ctx, input }) => {
