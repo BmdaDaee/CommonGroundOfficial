@@ -59,7 +59,7 @@ export default function ProfileScreen() {
   async function toggleMode(value: boolean) {
     setDeeplyMode(value);
     try {
-      await (trpc as any).profile.update.mutate({ app_mode: value ? 'deeply' : 'common' });
+      await (trpc as any).profile.update.mutate({ appMode: value ? 'deeply' : 'common' });
     } catch (e: any) {
       Alert.alert('Error', e.message);
       setDeeplyMode(!value);
